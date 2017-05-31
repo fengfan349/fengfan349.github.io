@@ -345,25 +345,17 @@
 <li>web页面可以存在ROM或文件系统中</li>
 <li>支持多种操作系统，包括eCos 、LINUX 、LynxOS 、QNX 、VxWorks 、WinCE</li>
 </ol>
-<h2 id="Goahead核心"><a href="#Goahead核心" class="headerlink" title="Goahead核心"></a>Goahead核心</h2><h4 id="ASP过程"><a href="#ASP过程" class="headerlink" title="ASP过程"></a>ASP过程</h4><ul>
-<li>用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览<ul>
+<h2 id="Goahead核心"><a href="#Goahead核心" class="headerlink" title="Goahead核心"></a>Goahead核心</h2><h3 id="ASP过程"><a href="#ASP过程" class="headerlink" title="ASP过程"></a>ASP过程</h3><h4 id="用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览"><a href="#用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览" class="headerlink" title="用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览"></a>用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览</h4><ul>
 <li>在goahead服务器中，网页以.asp的扩展名保存，asp是一种动态服务页面；</li>
 <li>要创建一个ASP文件中的ASP脚本就必须使用asp界定符  &lt;% function(arguments, …); %&gt;，这里的脚本使用goahead所支持的嵌入式javascript即Ejscript；</li>
 <li>Ejscript由goahead提供支持，goahead提供Ejscript解析器负责解析脚本函数，定位、传递脚本函数中的实参给此脚本函数对应的c语言实现的经过注册的全局函数;</li>
-<li>在goahead源码中使用一个自己定义的c函数，这个c函数通过调用goahead服务器中API函数 websAspDefine 向服务器注册此c函数，这样此c函数便成为了Ejscript的一个全局函数，负责具体实现Ejscript查询显示信息的功能。</li>
+<li>在goahead源码中使用一个自己定义的c函数，这个c函数通过调用goahead服务器中API函数 websAspDefine 向服务器注册此c函数，这样此c函数便成为了Ejscript的一个全局函数，负责具体实现Ejscript查询显示信息的功能。<h4 id="具体实例"><a href="#具体实例" class="headerlink" title="具体实例"></a>具体实例</h4></li>
 </ul>
-</li>
-<li>具体实例</li>
-</ul>
-<h4 id="GoForm过程"><a href="#GoForm过程" class="headerlink" title="GoForm过程"></a>GoForm过程</h4><ul>
-<li>根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备<ul>
+<h3 id="GoForm过程"><a href="#GoForm过程" class="headerlink" title="GoForm过程"></a>GoForm过程</h3><h4 id="根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备"><a href="#根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备" class="headerlink" title="根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备"></a>根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备</h4><ul>
 <li>GoAhead WebServer可以实现一个灵活的URL处理程序；</li>
 <li>.asp网页文件中form表单样式’ action=”/goform/ConfigInfo” action=”post” ‘,goahead服务器url处理器会自动解析goform/之后的内容；</li>
 <li>解析后的内容 ConfigInfo 对应于goahead服务器中经过 websFormDefine 注册的C程序，这里与ASP过程中的注册过程类似，这里的C程序负责处理表单数据并与系统主进程通信；</li>
-<li>上述的过程便是goahead提供的Goform过程，即内存中的CGI处理过程，与标准的CGI处理过程的区别是这里的Goform过程与goahead服务器进程共享地址空间，Goform过程所需得到的表单信息均由goahead服务器提供的标准的API函数 websGetVar 来获得，标准版本的CGI处理会导致在对于每一个CGIURL的请求产生一个新的进程；</li>
-</ul>
-</li>
-<li>具体实例</li>
+<li>上述的过程便是goahead提供的Goform过程，即内存中的CGI处理过程，与标准的CGI处理过程的区别是这里的Goform过程与goahead服务器进程共享地址空间，Goform过程所需得到的表单信息均由goahead服务器提供的标准的API函数 websGetVar 来获得，标准版本的CGI处理会导致在对于每一个CGIURL的请求产生一个新的进程；<h4 id="具体实例-1"><a href="#具体实例-1" class="headerlink" title="具体实例"></a>具体实例</h4></li>
 </ul>
 <hr>
 <h2 id="Goahead架构"><a href="#Goahead架构" class="headerlink" title="Goahead架构"></a>Goahead架构</h2><h2 id="Goahead移植"><a href="#Goahead移植" class="headerlink" title="Goahead移植"></a>Goahead移植</h2>

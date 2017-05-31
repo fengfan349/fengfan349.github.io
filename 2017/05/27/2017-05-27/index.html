@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/27/2017-05-27/index.html">
 <meta property="og:site_name" content="S.T.A.R">
 <meta property="og:description" content="Goahead简介GoAhead WebServer 它是一个源码免费、功能强大、可以在多个平台运行的嵌入式WebServer。  支持ASP 嵌入式的javascript 标准的CGI执行 内存中的CGI处理GoForms 扩展的API 快速响应，每秒可处理超过50个请求 完全和标准兼容 如果不包含SSI，仅要求60K的内存；包含SSI，要求500K内存 web页面可以存在ROM或文件系统中 支">
-<meta property="og:updated_time" content="2017-05-31T09:14:52.086Z">
+<meta property="og:updated_time" content="2017-05-31T09:22:07.724Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GoAhead WebServer学习">
 <meta name="twitter:description" content="Goahead简介GoAhead WebServer 它是一个源码免费、功能强大、可以在多个平台运行的嵌入式WebServer。  支持ASP 嵌入式的javascript 标准的CGI执行 内存中的CGI处理GoForms 扩展的API 快速响应，每秒可处理超过50个请求 完全和标准兼容 如果不包含SSI，仅要求60K的内存；包含SSI，要求500K内存 web页面可以存在ROM或文件系统中 支">
@@ -340,25 +340,17 @@
 <li>web页面可以存在ROM或文件系统中</li>
 <li>支持多种操作系统，包括eCos 、LINUX 、LynxOS 、QNX 、VxWorks 、WinCE</li>
 </ol>
-<h2 id="Goahead核心"><a href="#Goahead核心" class="headerlink" title="Goahead核心"></a>Goahead核心</h2><h4 id="ASP过程"><a href="#ASP过程" class="headerlink" title="ASP过程"></a>ASP过程</h4><ul>
-<li>用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览<ul>
+<h2 id="Goahead核心"><a href="#Goahead核心" class="headerlink" title="Goahead核心"></a>Goahead核心</h2><h3 id="ASP过程"><a href="#ASP过程" class="headerlink" title="ASP过程"></a>ASP过程</h3><h4 id="用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览"><a href="#用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览" class="headerlink" title="用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览"></a>用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览</h4><ul>
 <li>在goahead服务器中，网页以.asp的扩展名保存，asp是一种动态服务页面；</li>
 <li>要创建一个ASP文件中的ASP脚本就必须使用asp界定符  &lt;% function(arguments, …); %&gt;，这里的脚本使用goahead所支持的嵌入式javascript即Ejscript；</li>
 <li>Ejscript由goahead提供支持，goahead提供Ejscript解析器负责解析脚本函数，定位、传递脚本函数中的实参给此脚本函数对应的c语言实现的经过注册的全局函数;</li>
-<li>在goahead源码中使用一个自己定义的c函数，这个c函数通过调用goahead服务器中API函数 websAspDefine 向服务器注册此c函数，这样此c函数便成为了Ejscript的一个全局函数，负责具体实现Ejscript查询显示信息的功能。</li>
+<li>在goahead源码中使用一个自己定义的c函数，这个c函数通过调用goahead服务器中API函数 websAspDefine 向服务器注册此c函数，这样此c函数便成为了Ejscript的一个全局函数，负责具体实现Ejscript查询显示信息的功能。<h4 id="具体实例"><a href="#具体实例" class="headerlink" title="具体实例"></a>具体实例</h4></li>
 </ul>
-</li>
-<li>具体实例</li>
-</ul>
-<h4 id="GoForm过程"><a href="#GoForm过程" class="headerlink" title="GoForm过程"></a>GoForm过程</h4><ul>
-<li>根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备<ul>
+<h3 id="GoForm过程"><a href="#GoForm过程" class="headerlink" title="GoForm过程"></a>GoForm过程</h3><h4 id="根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备"><a href="#根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备" class="headerlink" title="根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备"></a>根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备</h4><ul>
 <li>GoAhead WebServer可以实现一个灵活的URL处理程序；</li>
 <li>.asp网页文件中form表单样式’ action=”/goform/ConfigInfo” action=”post” ‘,goahead服务器url处理器会自动解析goform/之后的内容；</li>
 <li>解析后的内容 ConfigInfo 对应于goahead服务器中经过 websFormDefine 注册的C程序，这里与ASP过程中的注册过程类似，这里的C程序负责处理表单数据并与系统主进程通信；</li>
-<li>上述的过程便是goahead提供的Goform过程，即内存中的CGI处理过程，与标准的CGI处理过程的区别是这里的Goform过程与goahead服务器进程共享地址空间，Goform过程所需得到的表单信息均由goahead服务器提供的标准的API函数 websGetVar 来获得，标准版本的CGI处理会导致在对于每一个CGIURL的请求产生一个新的进程；</li>
-</ul>
-</li>
-<li>具体实例</li>
+<li>上述的过程便是goahead提供的Goform过程，即内存中的CGI处理过程，与标准的CGI处理过程的区别是这里的Goform过程与goahead服务器进程共享地址空间，Goform过程所需得到的表单信息均由goahead服务器提供的标准的API函数 websGetVar 来获得，标准版本的CGI处理会导致在对于每一个CGIURL的请求产生一个新的进程；<h4 id="具体实例-1"><a href="#具体实例-1" class="headerlink" title="具体实例"></a>具体实例</h4></li>
 </ul>
 <hr>
 <h2 id="Goahead架构"><a href="#Goahead架构" class="headerlink" title="Goahead架构"></a>Goahead架构</h2><h2 id="Goahead移植"><a href="#Goahead移植" class="headerlink" title="Goahead移植"></a>Goahead移植</h2>
@@ -554,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Goahead简介"><span class="nav-number">1.</span> <span class="nav-text">Goahead简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goahead核心"><span class="nav-number">2.</span> <span class="nav-text">Goahead核心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ASP过程"><span class="nav-number">2.0.1.</span> <span class="nav-text">ASP过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GoForm过程"><span class="nav-number">2.0.2.</span> <span class="nav-text">GoForm过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goahead架构"><span class="nav-number">3.</span> <span class="nav-text">Goahead架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goahead移植"><span class="nav-number">4.</span> <span class="nav-text">Goahead移植</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Goahead简介"><span class="nav-number">1.</span> <span class="nav-text">Goahead简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goahead核心"><span class="nav-number">2.</span> <span class="nav-text">Goahead核心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ASP过程"><span class="nav-number">2.1.</span> <span class="nav-text">ASP过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览"><span class="nav-number">2.1.1.</span> <span class="nav-text">用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体实例"><span class="nav-number">2.1.2.</span> <span class="nav-text">具体实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GoForm过程"><span class="nav-number">2.2.</span> <span class="nav-text">GoForm过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备"><span class="nav-number">2.2.1.</span> <span class="nav-text">根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体实例-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">具体实例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goahead架构"><span class="nav-number">3.</span> <span class="nav-text">Goahead架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goahead移植"><span class="nav-number">4.</span> <span class="nav-text">Goahead移植</span></a></li></ol></div>
             
 
           </div>
