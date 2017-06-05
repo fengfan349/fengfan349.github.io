@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[GPIO驱动学习实践]]></title>
+      <url>/2017/06/02/gpio_driver/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[GoAhead WebServer学习]]></title>
+      <url>/2017/05/27/2017-05-27/</url>
+      <content type="html"><![CDATA[<h2 id="Goahead简介"><a href="#Goahead简介" class="headerlink" title="Goahead简介"></a>Goahead简介</h2><p><a href="http://embedthis.com/goahead/" target="_blank" rel="external">GoAhead WebServer</a> 它是一个源码免费、功能强大、可以在多个平台运行的嵌入式WebServer。</p>
+<ol>
+<li>支持ASP</li>
+<li>嵌入式的javascript</li>
+<li>标准的CGI执行</li>
+<li>内存中的CGI处理GoForms</li>
+<li>扩展的API</li>
+<li>快速响应，每秒可处理超过50个请求</li>
+<li>完全和标准兼容</li>
+<li>如果不包含SSI，仅要求60K的内存；包含SSI，要求500K内存</li>
+<li>web页面可以存在ROM或文件系统中</li>
+<li>支持多种操作系统，包括eCos 、LINUX 、LynxOS 、QNX 、VxWorks 、WinCE</li>
+</ol>
+<h2 id="Goahead核心"><a href="#Goahead核心" class="headerlink" title="Goahead核心"></a>Goahead核心</h2><h3 id="ASP过程"><a href="#ASP过程" class="headerlink" title="ASP过程"></a>ASP过程</h3><h4 id="用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览"><a href="#用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览" class="headerlink" title="用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览"></a>用来获得嵌入式系统正在运行中的进程的各种状态信息，并最终返回响应浏览</h4><ul>
+<li>在goahead服务器中，网页以.asp的扩展名保存，asp是一种动态服务页面；</li>
+<li>要创建一个ASP文件中的ASP脚本就必须使用asp界定符  &lt;% function(arguments, …); %&gt;，这里的脚本使用goahead所支持的嵌入式javascript即Ejscript；</li>
+<li>Ejscript由goahead提供支持，goahead提供Ejscript解析器负责解析脚本函数，定位、传递脚本函数中的实参给此脚本函数对应的c语言实现的经过注册的全局函数;</li>
+<li>在goahead源码中使用一个自己定义的c函数，这个c函数通过调用goahead服务器中API函数 websAspDefine 向服务器注册此c函数，这样此c函数便成为了Ejscript的一个全局函数，负责具体实现Ejscript查询显示信息的功能。<h4 id="具体实例"><a href="#具体实例" class="headerlink" title="具体实例"></a>具体实例</h4></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">aspTest</span><span class="params">(<span class="keyword">int</span> eid, <span class="keyword">webs_t</span> wp, <span class="keyword">int</span> argc, <span class="keyword">char_t</span> **argv)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">char_t</span>	*name, *address;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (ejArgs(argc, argv, T(<span class="string">"%s %s"</span>), &amp;name, &amp;address) &lt; <span class="number">2</span>) &#123;</div><div class="line">		websError(wp, <span class="number">400</span>, T(<span class="string">"Insufficient args\n"</span>));</div><div class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> websWrite(wp, T(<span class="string">"Name: %s, Address %s"</span>), name, address);</div><div class="line">&#125;</div><div class="line">websAspDefine(T(<span class="string">"aspTest"</span>), aspTest);</div></pre></td></tr></table></figure>
+<h3 id="GoForm过程"><a href="#GoForm过程" class="headerlink" title="GoForm过程"></a>GoForm过程</h3><h4 id="根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备"><a href="#根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备" class="headerlink" title="根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备"></a>根据Form表单Post上来的表单信息去设置和管理嵌入式系统设备</h4><ul>
+<li>GoAhead WebServer可以实现一个灵活的URL处理程序；</li>
+<li>.asp网页文件中form表单样式’ action=”/goform/ConfigInfo” action=”post” ‘,goahead服务器url处理器会自动解析goform/之后的内容；</li>
+<li>解析后的内容 ConfigInfo 对应于goahead服务器中经过 websFormDefine 注册的C程序，这里与ASP过程中的注册过程类似，这里的C程序负责处理表单数据并与系统主进程通信；</li>
+<li>上述的过程便是goahead提供的Goform过程，即内存中的CGI处理过程，与标准的CGI处理过程的区别是这里的Goform过程与goahead服务器进程共享地址空间，Goform过程所需得到的表单信息均由goahead服务器提供的标准的API函数 websGetVar 来获得，标准版本的CGI处理会导致在对于每一个CGIURL的请求产生一个新的进程；<h4 id="具体实例-1"><a href="#具体实例-1" class="headerlink" title="具体实例"></a>具体实例</h4></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">formTest</span><span class="params">(<span class="keyword">webs_t</span> wp, <span class="keyword">char_t</span> *path, <span class="keyword">char_t</span> *query)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">char_t</span>	*name, *address;</div><div class="line"></div><div class="line">	name = websGetVar(wp, T(<span class="string">"name"</span>), T(<span class="string">"Joe Smith"</span>)); </div><div class="line">	address = websGetVar(wp, T(<span class="string">"address"</span>), T(<span class="string">"1212 Milky Way Ave."</span>)); </div><div class="line"></div><div class="line">	websHeader(wp);</div><div class="line">	websWrite(wp, T(<span class="string">"&lt;body&gt;&lt;h2&gt;Name: %s, Address: %s&lt;/h2&gt;\n"</span>), name, address);</div><div class="line">	websFooter(wp);</div><div class="line">	websDone(wp, <span class="number">200</span>);</div><div class="line">&#125;</div><div class="line">websFormDefine(T(<span class="string">"formTest"</span>), formTest);</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="Goahead架构"><a href="#Goahead架构" class="headerlink" title="Goahead架构"></a>Goahead架构</h2><p>   <a href="http://embedthis.com/goahead/" target="_blank" rel="external">GoAhead源码分析—转载</a><br><br>    webs-2-5/</p>
+<pre><code>| 各种OS移植子目录，分别有：CE、ECOS、LINUX、LYNX、MACOSX、NW、QNX4、VXWORKS、WIN
+
+| utils：当前只有webcomp.c，即网页编译器 
+
+| www：存放web网页
+
+| wwwdemo：goAhead带的demo网页，里面包含了goAhead的一些文档
+
+| goAhead: 服务器源程序文件(C程序文件)
+</code></pre><h2 id="Goahead移植"><a href="#Goahead移植" class="headerlink" title="Goahead移植"></a>Goahead移植</h2><h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><ul>
+<li>宿主机<ul>
+<li>戴尔windows 10操作系统；</li>
+</ul>
+</li>
+<li>虚拟机<ul>
+<li>Redhat Enterprise Linux5；</li>
+</ul>
+</li>
+<li>开发板<ul>
+<li>主控芯片为PowerPC架构的MPC85xx系列的实验板；</li>
+<li>内核版本linux-2.6.20</li>
+</ul>
+</li>
+<li>交叉编译器<ul>
+<li>ppc_8xx-gcc;</li>
+</ul>
+</li>
+</ul>
+<h3 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h3><p>   <a href="http://download.csdn.net/detail/hot_passion/2786665" target="_blank" rel="external">Goahead-2.5 下载链接</a></p>
+<h3 id="移植步骤"><a href="#移植步骤" class="headerlink" title="移植步骤"></a>移植步骤</h3><h4 id="修改Makefile文件"><a href="#修改Makefile文件" class="headerlink" title="修改Makefile文件"></a>修改Makefile文件</h4><p>选择LINUX目录下的Makefile文件，添加如下内容:<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">AS      = <span class="variable">$(CROSS_COMPILE)</span>as  </div><div class="line">LD      = <span class="variable">$(CROSS_COMPILE)</span>ld  </div><div class="line">CC      = <span class="variable">$(CROSS_COMPILE)</span>gcc   </div><div class="line">AR      = <span class="variable">$(CROSS_COMPILE)</span>ar  </div><div class="line">NM      = <span class="variable">$(CROSS_COMPILE)</span>nm  </div><div class="line">STRIP   = <span class="variable">$(CROSS_COMPILE)</span>strip  </div><div class="line">OBJCOPY = <span class="variable">$(CROSS_COMPILE)</span>objcopy  </div><div class="line">OBJDUMP = <span class="variable">$(CROSS_COMPILE)</span>objdump</div></pre></td></tr></table></figure></p>
+<pre><code>这里的CROSS_COMPILE是虚拟机交叉编译环境经变量 ppc_8xx-gcc&lt;br&gt;
+同时需要根据情况注释掉Makefile中的下列语句：
+</code></pre><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">matrixsslDir:=<span class="variable">$(<span class="built_in">shell</span> ls -d ../matrixssl-3-1*/)</span></div></pre></td></tr></table></figure>
+<p>这一句是用来启动SSL matrixssl的,若当前系统不支持，就按上面所说注释掉这一句；Goahead官方文档中给出的说明如下：<br></p>
+<ul>
+<li>The Makefiles for LINUX and MACOSX will detect the MatrixSSL package, apply the necessary preprocessor defines, and link with the SSL library.</li>
+</ul>
+<h4 id="修改main-c文件"><a href="#修改main-c文件" class="headerlink" title="修改main.c文件"></a>修改main.c文件</h4>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>/2017/05/22/hello-world/</url>
+      <content type="html"><![CDATA[<pre><code>欢迎来到我的博客
+文章以嵌入式系统相关内容为主，其中有错误的地方欢迎及时指正，共勉！
+</code></pre>]]></content>
+      
+        
+    </entry>
+    
+  
+  
+</search>
