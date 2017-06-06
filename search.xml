@@ -3,6 +3,14 @@
   
     
     <entry>
+      <title><![CDATA[GPIO驱动学习实践]]></title>
+      <url>/2017/06/02/gpio_driver/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[GoAhead WebServer学习]]></title>
       <url>/2017/05/27/2017-05-27/</url>
       <content type="html"><![CDATA[<h2 id="Goahead简介"><a href="#Goahead简介" class="headerlink" title="Goahead简介"></a>Goahead简介</h2><p><a href="http://embedthis.com/goahead/" target="_blank" rel="external">GoAhead WebServer</a> 它是一个源码免费、功能强大、可以在多个平台运行的嵌入式WebServer。</p>
