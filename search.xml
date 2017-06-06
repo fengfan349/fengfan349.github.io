@@ -92,6 +92,20 @@
 <h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>接下来的过程中我将使用Goahead作为web服务器完成路由器网络管理部分应用层的设计，主要是面向管理人员和用户的网页管理配置部分的内容。</p>
 ]]></content>
       
+        <categories>
+            
+            <category> web服务器 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> web </tag>
+            
+            <tag> 嵌入式 </tag>
+            
+        </tags>
         
     </entry>
     
