@@ -86,9 +86,9 @@
 <p>参考文章给出了解决方法，这里就不详细描述了，解决方法请参考上文链接；这个错误与默认网页的处理有关，具体涉及到了default.c文件中的WebsDefaultHandler()函数。</p>
 <h4 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h4><pre><code>修改完必要的文件之后便可以执行编译过程了
 </code></pre><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make clean; make</div></pre></td></tr></table></figure>
-<p>编译成功之后会生成一个可执行的文件./webs和一个./libwebs.a的静态库文件，复制这两个文件所在目录与网页文件所在目录到目标版的文件系统当中，执行程序<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./webs</div></pre></td></tr></table></figure></p>
+<p>编译成功之后会生成一个可执行的文件./webs和一个./libwebs.a的静态库文件，由于我这里实验板使用的文件系统为网络文件系统NFS，所以这里可以复制这两个文件所在目录与网页文件所在目录到目标版的文件系统当中，执行程序<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./webs</div></pre></td></tr></table></figure></p>
 <p>或者<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./webs -demo</div></pre></td></tr></table></figure></p>
-<p>之后打开浏览器，访问<a href="http://192.168.186.138:8080" target="_blank" rel="external">http://192.168.186.138:8080</a> 便可以访问到默认网页内容。</p>
+<p>之后打开浏览器，访问<a href="http://192.168.186.138:8080" target="_blank" rel="external">http://192.168.186.138:8080</a> 便可以访问到默认网页内容。<br><br><img src="/img/goahead默认网页.png" alt="Goahead默认网页"></p>
 <h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>接下来的过程中我将使用Goahead作为web服务器完成路由器网络管理部分应用层的设计，主要是面向管理人员和用户的网页管理配置部分的内容。</p>
 ]]></content>
       
