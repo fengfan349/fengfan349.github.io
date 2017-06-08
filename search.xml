@@ -3,7 +3,15 @@
   <entry>
     <title><![CDATA[GPIO驱动学习实践]]></title>
     <url>%2F2017%2F06%2F02%2Fgpio_driver%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[简介linux驱动有三大类：字符设备驱动、块设备驱动、网络设备驱动。&lt;br&gt; 本文关注的是字符设备驱动-----以LED驱动为例 程序设计头文件下面是一些必要的头文件：1234567891011121314151617181920212223#include &lt;linux/module.h&gt;#include &lt;linux/moduleparam.h&gt;#include &lt;linux/init.h&gt;#include &lt;linux/kernel.h&gt; /* printk() */#include &lt;linux/slab.h&gt; /* kmalloc() */#include &lt;linux/fs.h&gt; /* everything... */#include &lt;linux/errno.h&gt; /* error codes */#include &lt;linux/types.h&gt; /* size_t */#include &lt;linux/proc_fs.h&gt;#include &lt;linux/fcntl.h&gt; /* O_ACCMODE */#include &lt;linux/aio.h&gt;#include &lt;linux/ioport.h&gt;#include &lt;linux/cdev.h&gt;#include &lt;linux/ioctl.h&gt; /* needed for the _IOW etc stuff used later */#include &lt;linux/mm.h&gt;#include &lt;linux/delay.h&gt;#include &lt;linux/cdev.h&gt;#include &lt;linux/device.h&gt;#include &lt;asm/uaccess.h&gt; /*put_user*/#include &lt;asm/io.h&gt;#include &lt;asm/system.h&gt; /* cli(), *_flags */#include &lt;asm/page.h&gt;#include &lt;asm/semaphore.h&gt; 宏定义IMMAP内部存储器映射寄存器这一部分是IO空间对应的唯一的物理空间地址：12#define IMMAP_BASE 0xFF000000 //物理地址#define IMMAP_LEN 0x100000 //地址空间大小 用户程序在运行中不能直接访问物理地址,这个地址是唯一的，我们需要将物理地址映射到0~4G大小的虚拟地址空间供用户程序使用；而驱动程序可以分为用户模式驱动和内核模式驱动： 地址空间划分 linux内核将虚拟地址空间划分为两部分供用户使用 用户空间：0x00000000~0xBFFFFFFF的3G大小的低地址空间； 内核空间：0xC0000000~0xFFFFFFFF的1G大小的高地址空间。 设备驱动模式 用户驱动模式： 实现函数： 1immr_map (&amp;immr, IMMAP_LEN, IMMAP_BASE); //将物理地址空间映射到低3G地址的用户空间，将映射后的地址保存在immr内部存储器映射寄存器中 上述函数实现物理地址映射是通过系统调用mmap函数实现的，过程如下： 12fd = open (MEM_FILE, O_RDWR)) //打开内存文件 /dev/mem*start = (VUINT32) mmap (NULL, len, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_FILE, fd, base)) //返回映射到用户进程虚拟地址空间的基地址 注：mmap负责把文件内容映射到进程的虚拟地址空间，通过对这段内存的读取和修改来实现对文件的读取和修改，而不需要再调用read和write； 内核驱动模式 主、次设备号12#define IO_MAJOR 250 #define IO_MINOR 0 在Linux内核看来，主设备号标识设备对应的驱动程序，告诉Linux内核使用哪一个驱动程序为该设备(也就是/dev下的设备文件)服务；而次设备号则用来标识具体且唯一的某个设备]]></content>
+      <categories>
+        <category>嵌入式linux驱动</category>
+      </categories>
+      <tags>
+        <tag>GPIO</tag>
+        <tag>字符设备驱动</tag>
+        <tag>LED</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[GoAhead WebServer学习]]></title>
