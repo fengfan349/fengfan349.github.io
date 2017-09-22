@@ -133,6 +133,8 @@
 
 
 
+
+
   <title>Hello World | S.T.A.R</title>
 </head>
 
@@ -173,7 +175,8 @@
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner">
+<div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -350,17 +353,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/22/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/22/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -420,14 +412,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/05/06/3s_1/" rel="next" title="3S大赛">
+                <i class="fa fa-chevron-left"></i> 3S大赛
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/27/2017-05-27/" rel="prev" title="GoAhead WebServer学习">
-                GoAhead WebServer学习 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/23/Linux_server/" rel="prev" title="嵌入式开发Linux服务器搭建">
+                嵌入式开发Linux服务器搭建 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -454,12 +450,23 @@
           
   <div class="comments" id="comments">
     
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
+       
+         <div id="gitment-container"></div>
+			<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+			<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+			<script type="text/javascript">
+			  var gitment = new Gitment({
+			    id: document.location.href,
+				owner: 'fengfan349', // 可以是你的GitHub用户名，也可以是github id
+				repo: 'fengfan349.github.io',
+				oauth: {
+				  client_id: '0253783125016c31eb43',
+				  client_secret: '0f1d48dfe90b5ac5caa7f5add94af2c78237e97c',
+				}});
+			  gitment.render('gitment-container');
+			</script>
+			 
+       
     
   </div>
 
@@ -498,7 +505,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -509,7 +516,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -520,7 +527,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -703,23 +710,14 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://fengfan349.disqus.com/count.js" async></script>
-    
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2017/05/22/hello-world/';
-          this.page.identifier = '2017/05/22/hello-world/';
-          this.page.title = 'Hello World';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://fengfan349.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
+
+
+	
+
+
+
+
 
   
 
@@ -727,8 +725,13 @@
 
 
 
+  
 
 
+
+
+
+  
 
 
 

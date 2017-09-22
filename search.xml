@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[GUI学习之Eclipse RCP]]></title>
+    <url>%2F2017%2F09%2F13%2Feclipse_rcp_1%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>GUI开发</category>
+      </categories>
+      <tags>
+        <tag>GUI</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[GUI学习之Duilib]]></title>
+    <url>%2F2017%2F08%2F18%2Fduilib_1%2F</url>
+    <content type="text"><![CDATA[前言​ Duilib 是一款强大的界面开发工具，可以将用户界面和处理逻辑彻底分离，极大地提高用户界面的开发效率。其使用C++开发，利用xml构建应用程序界面。duilib库提供了完成应用程序界面设计的基本组件，包括各种控件与布局方式，使用xml语言设计用户界面，duilib库提供了对xml文件的解析，用来根据xml文件的描述来创建出用户所希望看到的桌面应用程序。目前已经有很多桌面应用程序采用了duilib库，较为著名的有微信PC端应用程序以及百度杀毒等。 ​ 这里再多说两句，其实本来自己对于编程语言来讲只本科阶段系统学过C语言，html制作网页，即使是这样也不敢说对C语言能够掌握，对于其他的编程语言只是听过名字比如大名鼎鼎的C++，java，还有python，在学习的过程中也慢慢开始接触这几种都使用了面向对象思想的语言。C++与Java都是因为要用到制作windows桌面的应用程序而接触到的，就比如现在开始写得这个duilib库开发的过程就直接使用了C++，后面还会学习使用了一种利用java开发应用程序的方法，eclipse RCP框架，至于python这个后面还会继续详谈。 下载​ 目前duilib库源文件在github上，但已经基本没有什么人去定期维护升级库的功能，网络上也有很多程序员自己维护的duilib库也很不错，我自己也有想法维护自己的一套duilib库，去开发一些方便自己使用的控件，目前我已经尝试为duilib库中原有的控件增加百分比控制布局大小的功能，相关代码也放在了自己的github上，这仅仅是个开始。虽然自己现在还是一个菜鸟，更不要说对于C++编程了，但是有志者事竟成嘛，希望有一天自己也能有一套有自己特色的完美的duilib库！ ​ 我在使用的时候是下载的是官方github上的duilib库，这个库除了duilib的源码之外还提供了丰富的demo供初学者参考，这些demo中几乎涵盖了我在初学过程中遇到的所有问题。 从github上clone到本地： 1git clone: https://github.com/duilib/duilib.git 使用需要注意的是这个版本工程使用VS2013，其他版本的VS去编译的话很可能出问题，需要做适当的转换，具体方法网上有响应教程，我这里用的VS2008版本的。]]></content>
+      <categories>
+        <category>GUI开发</category>
+      </categories>
+      <tags>
+        <tag>GUI</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SNMP学习实践]]></title>
+    <url>%2F2017%2F06%2F28%2Fsnmp_1%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>SNMP</category>
+      </categories>
+      <tags>
+        <tag>SNMP</tag>
+        <tag>MIB</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[GPIO驱动学习实践]]></title>
     <url>%2F2017%2F06%2F02%2Fgpio_driver%2F</url>
     <content type="text"><![CDATA[简介linux驱动有三大类：字符设备驱动、块设备驱动、网络设备驱动 本文关注的是字符设备驱动-----以LED驱动为例 程序设计头文件下面是一些必要的头文件：1234567891011121314151617181920212223#include &lt;linux/module.h&gt;#include &lt;linux/moduleparam.h&gt;#include &lt;linux/init.h&gt;#include &lt;linux/kernel.h&gt; /* printk() */#include &lt;linux/slab.h&gt; /* kmalloc() */#include &lt;linux/fs.h&gt; /* everything... */#include &lt;linux/errno.h&gt; /* error codes */#include &lt;linux/types.h&gt; /* size_t */#include &lt;linux/proc_fs.h&gt;#include &lt;linux/fcntl.h&gt; /* O_ACCMODE */#include &lt;linux/aio.h&gt;#include &lt;linux/ioport.h&gt;#include &lt;linux/cdev.h&gt;#include &lt;linux/ioctl.h&gt; /* needed for the _IOW etc stuff used later */#include &lt;linux/mm.h&gt;#include &lt;linux/delay.h&gt;#include &lt;linux/cdev.h&gt;#include &lt;linux/device.h&gt;#include &lt;asm/uaccess.h&gt; /*put_user*/#include &lt;asm/io.h&gt;#include &lt;asm/system.h&gt; /* cli(), *_flags */#include &lt;asm/page.h&gt;#include &lt;asm/semaphore.h&gt; 宏定义IMMAP内部存储器映射寄存器这一部分是IO空间对应的唯一的物理空间地址：12345678910111213141516171819#define IMMAP_BASE 0xFF000000 //物理地址#define IMMAP_LEN 0x100000 //地址空间大小/* 此处一般有一个自定义设备结构体，用来保存设备相关的各种信息，包括主、次设备号，物理地址映射寄存器等必要结构，如下所示 */typedef struct io_dev_s&#123; u16 major; u16 minor; gpio_pa pa; gpio_pb pb; gpio_pd pd; gpio_pc pc; u32 phy_immr; u32 phy_base; u32 phy_len; struct class *cs; struct class_device *cd; spinlock_t lock; struct cdev cdev;&#125;io_dev; 用户程序在运行中不能直接访问物理地址,这个地址是唯一的，我们需要将物理地址映射到0~4G大小的虚拟地址空间供用户程序使用；而驱动程序可以分为用户模式驱动和内核模式驱动： 地址空间划分 linux内核将虚拟地址空间划分为两部分供用户使用 用户空间：0x00000000~0xBFFFFFFF的3G大小的低地址空间； 内核空间：0xC0000000~0xFFFFFFFF的1G大小的高地址空间。 设备驱动模式 用户驱动模式： 实现函数： 1immr_map (&amp;immr, IMMAP_LEN, IMMAP_BASE); //将物理地址空间映射到低3G地址的用户空间，将映射后的地址保存在immr内部存储器映射寄存器中 上述函数实现物理地址映射是通过系统调用mmap函数实现的，过程如下： 12fd = open (MEM_FILE, O_RDWR)) //打开内存文件 /dev/mem*start = (VUINT32) mmap (NULL, len, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_FILE, fd, base)) //返回映射到用户进程虚拟地址空间的基地址 注：mmap负责把文件内容映射到进程的虚拟地址空间，通过对这段内存的读取和修改来实现对文件的读取和修改，而不需要再调用read和write；这里的操作是把系统内存看作一个文件，而GPIO相关的寄存器是这个文件中的一部分内容，通过映射,GPIO的实际物理地址映射为用户空间的虚拟地址，这样返回一个虚拟空间GPIO的起始地址，便可以根据地址偏移量计算每个寄存器的虚拟地址，进而达到在用户空间程序直接访问的目的。 内核驱动模式： 实现函数： 12request_mem_region(io_dev.phy_base, io_dev.phy_len, IO_DRIVER_NAME); //为该驱动向内核申请指定物理地址的使用权，一旦获得使用权其他驱动便不可以使用这段内存；(unsigned long) ioremap(io_dev.phy_base, io_dev.phy_len)； //得到该段物理地址空间的权限之后还需要将该段物理地址映射到内核地址空间，供内核调用； 这里内核驱动模式与用户驱动模式的区别在于用户模式下驱动的控制是直接读写IO的映射之后的虚拟地址实现的，而本部分的内核调用是先使用系统调用函数诸如read，write等等进入内核空间，再由内核使用内核调用函数（由用户编写的read，write，ioctl等函数，下面会提到）来实现对IO的控制；本次对于GPIO驱动的控制是使用的内核驱动模式。 主、次设备号12#define IO_MAJOR 211 #define IO_MINOR 0 在Linux内核看来，主设备号标识设备对应的驱动程序，告诉Linux内核使用哪一个驱动程序为该设备(也就是/dev下的设备文件)服务；而次设备号则用来标识具体且唯一的某个设备。 驱动实现 io_init &amp; io_exit 实现物理地址到内核空间的映射并计算各个寄存器的地址偏移量； 获取dev_t类型的设备编号并以此向内核注册该设备： 12dev = MKDEV(io_dev.major,io_dev.minor);register_chrdev_region(dev, 1, IO_DRIVER_NAME); 编写各个内核调用的函数诸如：io_open, io_close, io_read, io_write,io_ioctl,同时初始化file_operations结构体，实例如下： 1234567891011121314151617181920212223242526272829303132/*这里以io_ioctl为例*/ssize_t io_ioctl(struct inode * inode, struct file *filp, unsigned int cmd, unsigned long arg)&#123; io_dev * dev; //自定义设备结构体 dev = filp-&gt;private_data; switch(cmd) &#123; case LED_CTRL_INIT: *(dev-&gt;pb.pbpar) &amp;= ~(arg); *(dev-&gt;pb.pbdir) |= arg; break; case LED_CTRL_ON: *(dev-&gt;pb.pbdat) &amp;= ~(arg); break; case LED_CTRL_OFF: *(dev-&gt;pb.pbdat) |= arg; break; default: return -1; break; &#125; return 0;&#125;struct file_operations io_fops = &#123; .owner = THIS_MODULE, .read = io_read, .write = io_write, .open = io_open, .ioctl = io_ioctl, .release = io_release, &#125;; 初始化cdev结构体，cdev结构体是设备驱动实现的关键，cdev是linux用来管理字符设备的结构体，其在内核中采用数组结构设计，这样系统中有多少个主设备号就约定了数组大小，此设备号采用链表管理，同一主设备号下可以有多个子设备。设备即文件，上层应用要访问设备，必须通过文件，cdev中包含file_operations结构体，该结构体就是驱动的文件操作集合。其分为一下几个步骤： 12345cdev_init(&amp;dev-&gt;cdev, &amp;io_fops);dev-&gt;cdev.owner = THIS_MODULE;dev-&gt;cdev.ops = &amp;io_fops;cdev_add (&amp;dev-&gt;cdev, devno, 1); 创建设备类，使得当调用insmod命令加载驱动时可以自动在/dev目录下创建该设备节点文件 12io_dev.cs = class_create(THIS_MODULE,IO_DRIVER_NAME);io_dev.cd = class_device_create(io_dev.cs, NULL, dev, NULL, IO_DRIVER_NAME); 卸载设备-io_exit 前面部分实现的是设备加载时调用执行的程序即io_init(),而设备退出时也需要响应的函数即io_exit: 1234cdev_del(&amp;io_dev.cdev);unregister_chrdev_region(MKDEV (io_dev.major, io_dev.minor), 1);iounmap((void __iomem *)io_dev.phy_immr);release_mem_region(io_dev.phy_base,io_dev.phy_len); 至此设备驱动基本编写完毕，但仍有一些后续工作：123456module_init(io_init); /* load the module */module_exit(io_exit); /* unload the module *//* before is some decription of the model,not necessary */MODULE_LICENSE("Dual BSD/GPL");MODULE_AUTHOR("zhangh"); 编译驱动这里需要将源文件编译为.ko的驱动模块，使用insmod加载到内核，相应的rmmod命令删除驱动模块。 下面是一个标准的Makefile： 12345678910111213141516171819ifeq ($(KERNELRELEASE),) #开始满足这个条件 KERNELRELEASE为空 KERNELDIR ?= /home/zhanghao/task/kernal/linux-2.6.20 #指定Linux内核目录位置 PWD := $(shell pwd) #打印当前驱动源码的本地位置 modules: #编译为驱动模块 $(MAKE) -C $(KERNELDIR) M=$(PWD) modules #-C 指定内核Makefile的路径，可以使用相对路径。 #-M 指定要编译的文件的路径，可以使用相对路径。 modules: $(MAKE) -C $(KERNELDIR) M=$(PWD) modules clean: rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c .tmp_versions modules.order Module.symvers else #再次读取这个Makefile文件时 KERNELRELEASE已被赋值MODULE_NAME := my_gpio #指定驱动模块的名字 ,不要和当前目录下的文件同名(算上扩展名比较) CORE_OBJS := my_gpio.o #指定驱动模块的核心文件（有init 和 exit） DEPE_OBJS := *.o #除了核心文件以外的其它依赖文件 $(MODULE_NAME)-objs := $(DEPE_OBJS) $(CORE_OBJS) #指定驱动模块的所有依赖文件 obj-m := my_gpio.o #最终由xxx-objs链接生成my_gpio.o，再生成my_gpio.ko endif Makefile参考链接]]></content>
@@ -26,8 +62,33 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[嵌入式开发Linux服务器搭建]]></title>
+    <url>%2F2017%2F05%2F23%2FLinux_server%2F</url>
+    <content type="text"><![CDATA[前言​ 学习嵌入式开发，首先在电脑上安装了VMWare虚拟机，虚拟机中安装redhat服务器版操作系统。接下来便是建立基本的开发环境，Let‘s Go！ Samba服务器安装​ 随着Linux的普及，如何共享Linux下的文件成为用户关心的问题。SMB（Server Message Block，服务信息块）是局域网上的共享文件夹/打印机的一种协议，Linux使用一个被称为Samba的程序来实现SMB协议。其实，几乎所有的Linux发行套件都提供了一个很好的工具Samba——通过它可以轻松实现文件共享。 下载安装samba1 yum -y install samba 此命令会联网搜索安装包（前提是虚拟机linux中的ip与DNS正确配置），若网络配置正确仍然不能搜索安装包，则需要更新yum源： 1234cd /etc/yum.repos.d/ 进入yum配置目录wget http://docs.linuxtone.org/soft/lemp/CentOS-Base.repo 下载相关文件mv CentOS-Base.repo rhel-debuginfo.repo 这一步之前做好备份yum install build-essential 安装 之后再运行安装samba的命令便可以安装成功samba 查看samba是否安装1rpm -q samba 服务配置文件12345678910111213141516171819202122#vi /etc/samba/smb.conf[zhanghao] path = /home/zhanghao writeable = yes browseable = yes valid users = zhanghao[embed-Ocean.Ho] path = /embed-Ocean.Ho public = yes writable = yes printable = no write list = 500 directory mask = 0777 create mask = 0777[usr-include] path=/usr/include writeable = no browseable = yes valid users = zhanghao directory mask = 0777 public = yes printable = no Samba用户建立Samba是默认在user模式下的，需要用户名和密码来查看共享文档。 12smbpasswd -a 用户名 #添加samba用户smbpasswd -e 用户名 #激活用户 （-a 创建 -e 启用 -d 禁用 -x 删除） 启动Samba服务123/etc/rc.d/init.d/smb start #（可以使用ntsysv设置开机自启动）/etc/rc.d/init.d/smb stop #停止 /etc/rc.d/init.d/smb restart #（修改过配置文件需要重启） Windows端查看共享目录在映射网络驱动器登陆中如下图红框（\192.168.186.138\zhanghao）： NFS服务器为了方便调试，需要在linux下设置nfs服务器，实现硬件设备boot启动使用NFS网络文件系统。配置方法如下（此部分需要root权限） nfs所需的软件包123rpm -q nfs-utils portmapnfs-utils-1.0.6-70.EL4portmap-4.0-63 NFS服务器的配置文件/etc/exports文件下进行配置，默认为空 参考示例： 1234/home/zhanghao/task/tc408el/initrd-nfs/ *(rw,no_root_squash,async)/home/zhuj/tc480ec/initrd-nfs/ *(rw,no_root_squash,async)/home/liuxk/tc480ec/initrd-nfs/ *(rw,no_root_squash,async)/home/wangjb/tc480ec/initrd-nfs/ *(rw,no_root_squash,async) 交叉编译工具（PowerPC系列）为了能够编译出硬件设备能够识别的二进制代码，需要安装交叉编译环境。ELDK是Embeded Linux Development Kit的缩写，是德国denx提供的供PowerPC嵌入式Linux移植的完整开发环境编译套件。 下载ISO镜像文件Denx为PPC（PowerPC）系列的CPU提供了多种ISO镜像文件。从ELDK的使用说明（ISO中的README.html）中能看到： ​ one for the 8xx, 6xx, 74xx and 85xx families (Freescale) 下载：http://ftp.denx.de/pub/eldk/4.2/ppc-linux-x86/iso/ppc-2008-04-01_freescale.iso 下载完成后在linux中mount命令挂载iso文件 1mount -o loop /home/zhanghao/task/tc408el/rhel-server-6.3-x86_64-dvd.iso /home/zhanghao/mnt/cdrom 挂载成功后便可以在mnt目录下看到相关文件。 安装： 1./install –d /home/zhanghao/edlk ppc_8xx 之后便可以在edlk目录下看到相关文件： 声明环境变量1234export LANG=Cexport CROSS_COMPILE=ppc_8xx-export ARCH=ppcexport PATH=$PATH:/home/zhanghao/eldk/usr/bin/ 保存后使用命令： 1source .bashrc 至此PowerPc平台交叉编译环境已经建立完毕 Helloworld实验1ppc_8xx-gcc helloworld.c -o helloworld #编译成功]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>server</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hello World]]></title>
     <url>%2F2017%2F05%2F22%2Fhello-world%2F</url>
     <content type="text"><![CDATA[欢迎来到我的博客 文章以嵌入式系统相关内容为主，其中有错误的地方欢迎及时指正，共勉！]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[3S大赛]]></title>
+    <url>%2F2017%2F05%2F06%2F3s_1%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>Smart Service System</category>
+      </categories>
+      <tags>
+        <tag>RaspberryPi</tag>
+        <tag>python</tag>
+        <tag>yeelink</tag>
+      </tags>
   </entry>
 </search>
