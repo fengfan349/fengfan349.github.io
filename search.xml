@@ -13,9 +13,22 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[3S大赛]]></title>
+    <url>%2F2017%2F09%2F06%2F3s_1%2F</url>
+    <content type="text"><![CDATA[前言]]></content>
+      <categories>
+        <category>Smart Service System</category>
+      </categories>
+      <tags>
+        <tag>RaspberryPi</tag>
+        <tag>python</tag>
+        <tag>yeelink</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[GUI学习之Duilib]]></title>
     <url>%2F2017%2F08%2F18%2Fduilib_1%2F</url>
-    <content type="text"><![CDATA[前言​ Duilib 是一款强大的界面开发工具，可以将用户界面和处理逻辑彻底分离，极大地提高用户界面的开发效率。其使用C++开发，利用xml构建应用程序界面。duilib库提供了完成应用程序界面设计的基本组件，包括各种控件与布局方式，使用xml语言设计用户界面，duilib库提供了对xml文件的解析，用来根据xml文件的描述来创建出用户所希望看到的桌面应用程序。目前已经有很多桌面应用程序采用了duilib库，较为著名的有微信PC端应用程序以及百度杀毒等。 ​ 这里再多说两句，其实本来自己对于编程语言来讲只本科阶段系统学过C语言，html制作网页，即使是这样也不敢说对C语言能够掌握，对于其他的编程语言只是听过名字比如大名鼎鼎的C++，java，还有python，在学习的过程中也慢慢开始接触这几种都使用了面向对象思想的语言。C++与Java都是因为要用到制作windows桌面的应用程序而接触到的，就比如现在开始写得这个duilib库开发的过程就直接使用了C++，后面还会学习使用了一种利用java开发应用程序的方法，eclipse RCP框架，至于python这个后面还会继续详谈。 下载​ 目前duilib库源文件在github上，但已经基本没有什么人去定期维护升级库的功能，网络上也有很多程序员自己维护的duilib库也很不错，我自己也有想法维护自己的一套duilib库，去开发一些方便自己使用的控件，目前我已经尝试为duilib库中原有的控件增加百分比控制布局大小的功能，相关代码也放在了自己的github上，这仅仅是个开始。虽然自己现在还是一个菜鸟，更不要说对于C++编程了，但是有志者事竟成嘛，希望有一天自己也能有一套有自己特色的完美的duilib库！ ​ 我在使用的时候是下载的是官方github上的duilib库，这个库除了duilib的源码之外还提供了丰富的demo供初学者参考，这些demo中几乎涵盖了我在初学过程中遇到的所有问题。 从github上clone到本地： 1git clone: https://github.com/duilib/duilib.git 使用需要注意的是这个版本工程使用VS2013，其他版本的VS去编译的话很可能出问题，需要做适当的转换，具体方法网上有响应教程，我这里用的VS2008版本的。]]></content>
+    <content type="text"><![CDATA[前言​ Duilib 是一款强大的界面开发工具，可以将用户界面和处理逻辑彻底分离，极大地提高用户界面的开发效率。其使用C++开发，利用xml构建应用程序界面。duilib库提供了完成应用程序界面设计的基本组件，包括各种控件与布局方式，使用xml语言设计用户界面，duilib库提供了对xml文件的解析，用来根据xml文件的描述来创建出用户所希望看到的桌面应用程序。目前已经有很多桌面应用程序采用了duilib库，较为著名的有微信PC端应用程序以及百度杀毒等。 ​ 这里再多说两句，其实本来自己对于编程语言来讲只本科阶段系统学过C语言，html制作网页，即使是这样也不敢说对C语言能够掌握，对于其他的编程语言只是听过名字比如大名鼎鼎的C++，java，还有python，在学习的过程中也慢慢开始接触这几种都使用了面向对象思想的语言。C++与Java都是因为要用到制作windows桌面的应用程序而接触到的，就比如现在开始写得这个duilib库开发的过程就直接使用了C++，后面还会学习使用了一种利用java开发应用程序的方法，eclipse RCP框架，至于python这个后面还会继续详谈。 下载​ 目前duilib库源文件在github上，但已经基本没有什么人去定期维护升级库的功能，网络上也有很多程序员自己维护的duilib库也很不错，我自己也有想法维护自己的一套duilib库，去开发一些方便自己使用的控件，目前我已经尝试为duilib库中原有的控件增加百分比控制布局大小的功能，相关代码也放在了自己的github上，这仅仅是个开始。虽然自己现在还是一个菜鸟，更不要说对于C++编程了，但是有志者事竟成嘛，希望有一天自己也能有一套有自己特色的完美的duilib库！ ​ 我在使用的时候是下载的是官方github上的duilib库，这个库除了duilib的源码之外还提供了丰富的demo供初学者参考，这些demo中几乎涵盖了我在初学过程中遇到的所有问题。 从github上clone到本地： 1git clone: https://github.com/duilib/duilib.git 使用需要注意的是这个版本工程使用VS2013，其他版本的VS去编译的话很可能出问题，需要做适当的转换，具体方法网上有相应的教程，我这里用的VS2008版本的。]]></content>
       <categories>
         <category>GUI开发</category>
       </categories>
@@ -77,18 +90,5 @@
     <title><![CDATA[Hello World]]></title>
     <url>%2F2017%2F05%2F22%2Fhello-world%2F</url>
     <content type="text"><![CDATA[欢迎来到我的博客 文章以嵌入式系统相关内容为主，其中有错误的地方欢迎及时指正，共勉！]]></content>
-  </entry>
-  <entry>
-    <title><![CDATA[3S大赛]]></title>
-    <url>%2F2017%2F05%2F06%2F3s_1%2F</url>
-    <content type="text"></content>
-      <categories>
-        <category>Smart Service System</category>
-      </categories>
-      <tags>
-        <tag>RaspberryPi</tag>
-        <tag>python</tag>
-        <tag>yeelink</tag>
-      </tags>
   </entry>
 </search>
