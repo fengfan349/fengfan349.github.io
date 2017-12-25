@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
+    <title><![CDATA[随笔]]></title>
     <url>%2F2017%2F12%2F25%2FInformal_essay%2F</url>
     <content type="text"></content>
+      <categories>
+        <category>Informal essay</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[GUI学习之Eclipse RCP]]></title>
